@@ -12,7 +12,7 @@ const Testimonial = () => {
 
 
     </div>
-    <Animation/>
+    <Animation/>  
     </div>
   )
 }

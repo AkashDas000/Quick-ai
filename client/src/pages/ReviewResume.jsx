@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { FileText, Sparkles } from "lucide-react";
-// import axios from "axios";
-// import { useAuth } from "@clerk/clerk-react";
-// import toast from "react-hot-toast";
-// import Markdown from "react-markdown";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import toast from "react-hot-toast";
+import Markdown from "react-markdown";
 
-// axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const ReviewResume = () => {
   const [input, setInput] = useState("");
@@ -13,31 +13,31 @@ const ReviewResume = () => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
 
-  // const { getToken } = useAuth();
+  const { getToken } = useAuth();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   setLoading(true);
+    try {
+      setLoading(true);
 
-    //   const formData = new FormData();
-    //   formData.append("resume", input);
+      const formData = new FormData();
+      formData.append("resume", input);
 
-    //   const { data } = await axios.post("/api/ai/resume-review", formData, {
-    //     headers: { Authorization: `Bearer ${await getToken()}` },
-    //   });
+      const { data } = await axios.post("/api/ai/resume-review", formData, {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
 
-    //   if (data.success) {
-    //     setContent(data.content);
-    //   } else {
-    //     toast.error(data.message);
-    //   }
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+      if (data.success) {
+        setContent(data.content);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
 
-    // setLoading(false);
+    setLoading(false);
   };
 
   return (

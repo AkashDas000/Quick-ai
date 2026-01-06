@@ -2,36 +2,34 @@ import { useEffect, useState } from "react";
 import { Gem, Sparkles } from "lucide-react";
 import { Protect, useAuth } from "@clerk/clerk-react";
 import CreationItem from "../components/CreationItem";
-import { dummyCreationData} from '../assets/assets'
-// import axios from "axios";
-// import toast from "react-hot-toast";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-// axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const Dashboard = () => {
   const [creations, setCreations] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // const { getToken } = useAuth();
+  const { getToken } = useAuth();
 
   const getDashboardData = async () => {
-    setCreations(dummyCreationData)
-    // try {
-    //   const { data } = await axios.get("/api/user/get-user-creations", {
-    //     headers: { Authorization: `Bearer ${await getToken()}` },
-    //   });
+    try {
+      const { data } = await axios.get("/api/user/get-user-creations", {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
 
-    //   if (data.success) {
-    //     setCreations(data.creations);
-    //   } else {
-    //     toast.error(data.message);
-    //   }
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+      if (data.success) {
+        setCreations(data.creations);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
 
-    // setLoading(false);
+    setLoading(false);
   };
 
   useEffect(() => {

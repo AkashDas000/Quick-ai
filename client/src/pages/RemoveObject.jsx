@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Scissors, Sparkles } from "lucide-react";
-// import axios from "axios";
-// import { useAuth } from "@clerk/clerk-react";
-// import toast from "react-hot-toast";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import toast from "react-hot-toast";
 
-// axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const RemoveObject = () => {
   const [input, setInput] = useState("");
@@ -13,38 +13,38 @@ const RemoveObject = () => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
 
-  // const { getToken } = useAuth();
+  const { getToken } = useAuth();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   setLoading(true);
+    try {
+      setLoading(true);
 
-    //   if (object.split(" ").length > 1) {
-    //     return toast("Please enter only one object name");
-    //   }
+      if (object.split(" ").length > 1) {
+        return toast("Please enter only one object name");
+      }
 
-    //   const formData = new FormData();
-    //   formData.append("image", input);
-    //   formData.append("object", object);
+      const formData = new FormData();
+      formData.append("image", input);
+      formData.append("object", object);
 
-    //   const { data } = await axios.post(
-    //     "/api/ai/remove-image-object",
-    //     formData,
-    //     { headers: { Authorization: `Bearer ${await getToken()}` } }
-    //   );
+      const { data } = await axios.post(
+        "/api/ai/remove-image-object",
+        formData,
+        { headers: { Authorization: `Bearer ${await getToken()}` } }
+      );
 
-    //   if (data.success) {
-    //     setContent(data.content);
-    //   } else {
-    //     toast.error(data.message);
-    //   }
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+      if (data.success) {
+        setContent(data.content);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
 
-    // setLoading(false);
+    setLoading(false);
   };
 
   return (

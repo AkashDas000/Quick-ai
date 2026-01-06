@@ -4,8 +4,7 @@ import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import * as pdf from "pdf-parse";
-
+import pdf from "pdf-parse/lib/pdf-parse.js";
 
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -170,7 +169,7 @@ export const removeImageBackground = async (req, res) => {
   }
 };
 
-export const removeImageObject = async (req, res) => {
+export const removeImageObject = async (req, res) => { 
   try {
     const { userId } = req.auth();
     const { object } = req.body;
