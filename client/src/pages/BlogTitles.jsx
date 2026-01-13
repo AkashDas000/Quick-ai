@@ -24,7 +24,7 @@ const BlogTitles = () => {
 
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
-
+  
   const { getToken } = useAuth();
 
   const onSubmitHandler = async (e) => {
